@@ -1,0 +1,12 @@
+asgiref==3.8.1
+Django==5.1.6
+django-cors-headers==4.7.0
+djangorestframework==3.15.2
+environs==14.1.1
+marshmallow==3.26.1
+numpy==2.2.5
+opencv-python==4.11.0.86
+packaging==24.2
+pillow==11.2.1
+python-dotenv==1.0.1
+sqlparse==0.5.3

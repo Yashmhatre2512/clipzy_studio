@@ -1,0 +1,30 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.log
+
+# Python env/config
+.env
+.env.*
+
+# Frontend build artifacts
+ui/node_modules/
+ui/.next/
+ui/out/
+
+# Generated app data
+shortGen/results/
+shortGen/temp/
+shortGen/uploads/
+
+# Local credentials
+shortGen/cred.json
+
+# Bundled binaries and archives
+ffmpeg-8.0.1-essentials_build/
+ffmpeg.zip
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Highlights Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .progress {
+            height: 25px;
+        }
+        .highlight-preview {
+            max-width: 100%;
+            margin-bottom: 15px;
+        }
+        #uploadForm {
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .highlight-card {
+            transition: transform 0.3s ease;
+        }
+        .highlight-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Video Highlights Generator</h1>
+        
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div id="uploadForm" class="bg-light p-4 mb-4">
+                    <h3>Upload Video</h3>
+                    <form id="videoForm">
+                        <div class="mb-3">
+                            <label for="videoFile" class="form-label">Select Video File</label>
+                            <input class="form-control" type="file" id="videoFile" accept="video/*" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numHighlights" class="form-label">Number of Highlights</label>
+                            <input type="number" class="form-control" id="numHighlights" min="1" max="10" value="3">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Highlight Duration (seconds)</label>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="minDuration" class="form-label">Minimum</label>
+                                    <input type="number" class="form-control" id="minDuration" min="5" max="60" value="20">
+                                </div>
+                                <div class="col">
+                                    <label for="maxDuration" class="form-label">Maximum</label>
+                                    <input type="number" class="form-control" id="maxDuration" min="5" max="120" value="30">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Upload & Generate Highlights</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div id="progressSection" class="d-none">
+            <h3>Processing Video</h3>
+            <div class="progress mb-3">
+                <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+            </div>
+            <p id="statusMessage" class="text-center">Uploading video...</p>
+        </div>
+        
+        <div id="resultsSection" class="d-none">
+            <h3 class="mb-3">Generated Highlights</h3>
+            <div id="highlightsContainer" class="row"></div>
+            
+            <div id="transcriptSection" class="mt-4 d-none">
+                <h4>Video Transcript</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <p id="transcriptText" class="mb-0"></p>
+                        <a id="downloadTranscript" href="#" class="btn btn-sm btn-outline-secondary mt-2">Download Transcript</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="errorSection" class="d-none">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Error</h4>
+                <p id="errorMessage"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API base URL - change this to match your backend
+        const API_URL = 'http://localhost:5000/api';
+        
+        // DOM elements
+        const videoForm = document.getElementById('videoForm');
+        const uploadForm = document.getElementById('uploadForm');
+        const progressSection = document.getElementById('progressSection');
+        const progressBar = document.getElementById('progressBar');
+        const statusMessage = document.getElementById('statusMessage');
+        const resultsSection = document.getElementById('resultsSection');
+        const highlightsContainer = document.getElementById('highlightsContainer');
+        const errorSection = document.getElementById('errorSection');
+        const errorMessage = document.getElementById('errorMessage');
+        const transcriptSection = document.getElementById('transcriptSection');
+        const transcriptText = document.getElementById('transcriptText');
+        const downloadTranscript = document.getElementById('downloadTranscript');
+        
+        // Current job ID
+        let currentJobId = null;
+        let statusCheckInterval = null;
+        
+        // Event listeners
+        videoForm.addEventListener('submit', handleFormSubmit);
+        
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const videoFile = document.getElementById('videoFile').files[0];
+            if (!videoFile) {
+                showError('Please select a video file');
+                return;
+            }
+            
+            // Get form values
+            const numHighlights = document.getElementById('numHighlights').value;
+            const minDuration = document.getElementById('minDuration').value;
+            const maxDuration = document.getElementById('maxDuration').value;
+            
+            // Create form data
+            const formData = new FormData();
+            formData.append('video', videoFile);
+            formData.append('num_highlights', numHighlights);
+            formData.append('min_duration', minDuration);
+            formData.append('max_duration', maxDuration);
+            
+            // Show progress section
+            uploadForm.classList.add('d-none');
+            progressSection.classList.remove('d-none');
+            resultsSection.classList.add('d-none');
+            errorSection.classList.add('d-none');
+            
+            try {
+                // Upload video
+                const response = await fetch(`${API_URL}/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Upload failed');
+                }
+                
+                const data = await response.json();
+                currentJobId = data.job_id;
+                
+                // Start checking status
+                statusMessage.textContent = 'Processing video...';
+                startStatusCheck();
+                
+            } catch (error) {
+                showError(error.message || 'An error occurred during upload');
+                progressSection.classList.add('d-none');
+                uploadForm.classList.remove('d-none');
+            }
+        }
+        
+        function startStatusCheck() {
+            if (statusCheckInterval) {
+                clearInterval(statusCheckInterval);
+            }
+            
+            statusCheckInterval = setInterval(checkJobStatus, 2000);
+        }
+        
+        async function checkJobStatus() {
+            if (!currentJobId) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/status/${currentJobId}`);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to get job status');
+                }
+                
+                const data = await response.json();
+                
+                // Update progress
+                progressBar.style.width = `${data.progress}%`;
+                progressBar.textContent = `${data.progress}%`;
+                
+                // Update status message
+                statusMessage.textContent = `Status: ${data.status} (${data.progress}%)`;
+                
+                // Check if job is complete
+                if (data.status === 'complete') {
+                    clearInterval(statusCheckInterval);
+                    getJobResults();
+                } else if (data.status === 'failed') {
+                    clearInterval(statusCheckInterval);
+                    showError(data.error || 'Job failed');
+                    progressSection.classList.add('d-none');
+                    uploadForm.classList.remove('d-none');
+                }
+            } catch (error) {
+                console.error('Error checking status:', error);
+            }
+        }
+        
+        async function getJobResults() {
+    try {
+        // Note the URL path includes "/api/" now
+        const response = await fetch(`${API_URL}/results/${currentJobId}`);
+        
+        if (!response.ok) {
+            throw new Error('Failed to get results');
+        }
+        
+        const data = await response.json();
+        
+        // Display results
+        displayResults(data);
+        
+    } catch (error) {
+        showError(error.message || 'An error occurred while getting results');
+        progressSection.classList.add('d-none');
+        uploadForm.classList.remove('d-none');
+    }
+}
+        function displayResults(data) {
+            // Hide progress section
+            progressSection.classList.add('d-none');
+            
+            // Clear previous results
+            highlightsContainer.innerHTML = '';
+            
+            // Add each highlight
+            data.highlights.forEach(highlight => {
+                const card = document.createElement('div');
+                card.className = 'col-md-4 mb-4';
+                card.innerHTML = `
+                    <div class="card highlight-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Highlight ${highlight.id}</h5>
+                            <p class="card-text">
+                                Duration: ${highlight.duration.toFixed(1)}s<br>
+                                From: ${highlight.start_time.toFixed(1)}s to ${highlight.end_time.toFixed(1)}s
+                            </p>
+                            <video class="highlight-preview w-100" controls>
+                                <source src="${highlight.url}" type="video/mp4">
+                                Your browser doesn't support video playback.
+                            </video>
+                            <a href="${highlight.url}" class="btn btn-primary w-100" download>Download</a>
+                        </div>
+                    </div>
+                `;
+                highlightsContainer.appendChild(card);
+            });
+            
+            // Show transcript if available
+            if (data.transcript_url) {
+                transcriptSection.classList.remove('d-none');
+                fetchTranscript(data.transcript_url);
+                downloadTranscript.href = data.transcript_url;
+            } else {
+                transcriptSection.classList.add('d-none');
+            }
+            
+            // Show results section
+            resultsSection.classList.remove('d-none');
+            
+            // Add reset button
+            const resetButton = document.createElement('button');
+            resetButton.className = 'btn btn-secondary mt-3 mb-5';
+            resetButton.textContent = 'Process Another Video';
+            resetButton.addEventListener('click', resetForm);
+            resultsSection.appendChild(resetButton);
+        }
+        
+        async function fetchTranscript(url) {
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    const text = await response.text();
+                    transcriptText.textContent = text;
+                }
+            } catch (error) {
+                console.error('Error fetching transcript:', error);
+                transcriptText.textContent = 'Failed to load transcript.';
+            }
+        }
+        
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorSection.classList.remove('d-none');
+            
+            // Hide other sections
+            progressSection.classList.add('d-none');
+            resultsSection.classList.add('d-none');
+        }
+        
+        function resetForm() {
+            // Reset form
+            videoForm.reset();
+            
+            // Show upload form
+            uploadForm.classList.remove('d-none');
+            
+            // Hide other sections
+            progressSection.classList.add('d-none');
+            resultsSection.classList.add('d-none');
+            errorSection.classList.add('d-none');
+            
+            // Clear current job
+            currentJobId = null;
+            if (statusCheckInterval) {
+                clearInterval(statusCheckInterval);
+                statusCheckInterval = null;
+            }
+        }
+    </script>
+</body>
+</html>
