@@ -10,6 +10,11 @@ import time
 
 ROOT = Path(__file__).resolve().parent
 
+# Make install.py importable from the same directory
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from install import ensure_ffmpeg
+
 def build_runtime_env() -> dict:
     env = os.environ.copy()
     ffmpeg_matches = sorted(ROOT.glob("ffmpeg-*-essentials_build/bin/ffmpeg.exe"))
@@ -74,12 +79,20 @@ def main():
     print(f"✅ UI directory: {ui_dir}")
     print(f"✅ Python: {python_exe}")
 
+    print("\n=== Checking FFmpeg ===")
+    try:
+        ensure_ffmpeg()
+    except Exception as exc:
+        print(f"❌ FFmpeg setup failed: {exc}")
+        print("   Try running: python install.py")
+        return 1
+
     runtime_env = build_runtime_env()
     ffmpeg_path = runtime_env.get("FFMPEG_PATH")
     if ffmpeg_path:
         print(f"✅ FFmpeg: {ffmpeg_path}")
     else:
-        print("⚠️  FFmpeg not detected in local project files or PATH")
+        print("⚠️  FFmpeg not detected locally; relying on system PATH")
     
     # Start both services in background
     print("\n⏳ Starting services...")
