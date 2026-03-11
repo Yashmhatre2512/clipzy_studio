@@ -12,6 +12,7 @@ python install.py
 ```
 
 This will:
+- Download and extract FFmpeg automatically on Windows if it is missing
 - Create virtual environments for all Python services
 - Install Python dependencies from `requirements.txt`
 - Install npm dependencies for the UI
@@ -69,6 +70,7 @@ NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
 - **Port already in use?** Change the port in the service's app configuration
 - **npm not found?** Ensure Node.js is installed and in PATH
 - **Python venv issues?** Delete the `venv` folders and re-run `install.py`
+- **FFmpeg download failed?** Check your internet connection and re-run `install.py`
 
 ## Notes
 

@@ -10,6 +10,15 @@ import time
 
 ROOT = Path(__file__).resolve().parent
 
+def build_runtime_env() -> dict:
+    env = os.environ.copy()
+    ffmpeg_matches = sorted(ROOT.glob("ffmpeg-*-essentials_build/bin/ffmpeg.exe"))
+    if ffmpeg_matches:
+        ffmpeg_bin = ffmpeg_matches[-1].parent
+        env["PATH"] = f"{ffmpeg_bin}{os.pathsep}{env.get('PATH', '')}"
+        env.setdefault("FFMPEG_PATH", str(ffmpeg_matches[-1]))
+    return env
+
 def run_command(name: str, cmd: list, cwd: Path):
     """Run a command and print output in real-time."""
     print(f"\n{'='*60}")
@@ -64,6 +73,13 @@ def main():
     print(f"\n✅ shortGen directory: {shortgen_dir}")
     print(f"✅ UI directory: {ui_dir}")
     print(f"✅ Python: {python_exe}")
+
+    runtime_env = build_runtime_env()
+    ffmpeg_path = runtime_env.get("FFMPEG_PATH")
+    if ffmpeg_path:
+        print(f"✅ FFmpeg: {ffmpeg_path}")
+    else:
+        print("⚠️  FFmpeg not detected in local project files or PATH")
     
     # Start both services in background
     print("\n⏳ Starting services...")
@@ -76,7 +92,8 @@ def main():
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             universal_newlines=True,
-            bufsize=1
+            bufsize=1,
+            env=runtime_env,
         )
         print("✅ shortGen starting...")
         
@@ -105,7 +122,8 @@ def main():
             stderr=subprocess.STDOUT,
             universal_newlines=True,
             shell=True,
-            bufsize=1
+            bufsize=1,
+            env=runtime_env,
         )
         print("✅ UI started\n")
     except Exception as e:
