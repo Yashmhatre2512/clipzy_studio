@@ -1,0 +1,39 @@
+# ─────────────────────────────────────────────
+# Clipzy Studio — Root Requirements Overview
+# Each service has its own requirements.txt
+# Run: python install.py  (installs everything)
+# ─────────────────────────────────────────────
+
+# ── lectureGen (Port 5001) ────────────────────
+# flask==3.1.0
+# flask-cors==5.0.0
+# openai-whisper
+# scikit-learn
+# numpy
+# werkzeug
+
+# ── sportsGen (Port 5002) ─────────────────────
+# flask==3.1.0
+# flask-cors==5.0.0
+# librosa
+# scipy
+# numpy
+# soundfile
+# werkzeug
+
+# ── hashtagGen (Port 5003) ────────────────────
+# flask==3.1.0
+# flask-cors==5.0.0
+# groq
+# requests
+# beautifulsoup4
+# werkzeug
+
+# ── shortGen (Port 5000) ──────────────────────
+# See shortGen/requirements.txt for full list
+# Core: flask, flask-cors, moviepy, opencv-python,
+#       torch, openai-whisper, scenedetect
+
+# ── Shared / System ───────────────────────────
+# FFmpeg  (auto-downloaded by install.py)
+# Node.js 18+  (for Next.js UI)
