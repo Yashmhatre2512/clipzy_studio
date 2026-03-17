@@ -9,9 +9,12 @@ from typing import Optional
 
 # Backends to prepare
 BACKENDS = [
-    {"folder": "aivideogen", "req": "requirements.txt"},
-    {"folder": "aizoom",     "req": "requirements.txt"},
-    {"folder": "shortGen",   "req": "requirements.txt"},
+    {"folder": "aivideogen",  "req": "requirements.txt"},
+    {"folder": "aizoom",      "req": "requirements.txt"},
+    {"folder": "shortGen",    "req": "requirements.txt"},
+    {"folder": "lectureGen",  "req": "requirements.txt"},
+    {"folder": "sportsGen",   "req": "requirements.txt"},
+    {"folder": "hashtagGen",  "req": "requirements.txt"},
 ]
 FRONTEND_DIR = "ui"
 ROOT = Path(__file__).resolve().parent
@@ -22,6 +25,49 @@ def info(msg):  print(f"[INFO]    {msg}")
 def warn(msg):  print(f"[WARN]    {msg}")
 def error(msg): print(f"[ERROR]   {msg}")
 
+COMPATIBLE_PYTHON_VERSIONS = ["3.12", "3.11", "3.10", "3.9"]
+
+def find_compatible_python() -> str:
+    """Find a Python interpreter compatible with the packages (3.9–3.12)."""
+    import platform
+    cur_ver = platform.python_version_tuple()
+    cur_minor = int(cur_ver[1])
+    if cur_ver[0] == "3" and 9 <= cur_minor <= 12:
+        return sys.executable  # current Python is already compatible
+
+    # Try py launcher (Windows) first
+    if os.name == "nt":
+        for ver in COMPATIBLE_PYTHON_VERSIONS:
+            try:
+                result = subprocess.run(
+                    ["py", f"-{ver}", "-c", "import sys; print(sys.executable)"],
+                    capture_output=True, text=True
+                )
+                if result.returncode == 0:
+                    exe = result.stdout.strip()
+                    info(f"Using Python {ver} from py launcher: {exe}")
+                    return exe
+            except FileNotFoundError:
+                break
+
+    # Try python3.X commands
+    for ver in COMPATIBLE_PYTHON_VERSIONS:
+        cmd = f"python{ver}" if os.name != "nt" else f"python{ver}"
+        try:
+            result = subprocess.run(
+                [cmd, "-c", "import sys; print(sys.executable)"],
+                capture_output=True, text=True
+            )
+            if result.returncode == 0:
+                exe = result.stdout.strip()
+                info(f"Found compatible Python at: {exe}")
+                return exe
+        except FileNotFoundError:
+            continue
+
+    warn(f"No compatible Python (3.9–3.12) found; using system Python {sys.version.split()[0]} — some packages may fail to install")
+    return sys.executable
+
 def ensure_venv(proj: Path) -> Path:
     """Create venv if missing and return the venv's python, else fallback to system."""
     venv_dir = proj / "venv"
@@ -30,7 +76,8 @@ def ensure_venv(proj: Path) -> Path:
     if not venv_dir.exists():
         info(f"Creating virtualenv in {proj}/venv …")
         try:
-            subprocess.check_call([sys.executable, "-m", "venv", str(venv_dir)])
+            py = find_compatible_python()
+            subprocess.check_call([py, "-m", "venv", str(venv_dir)])
         except subprocess.CalledProcessError:
             warn(f"Could not create venv for {proj}; will use system Python")
 
@@ -43,8 +90,10 @@ def ensure_venv(proj: Path) -> Path:
 def install_requirements(python_exe: Path, proj: Path, req_file: str):
     path = proj / req_file
     if path.exists():
+        info(f"Upgrading pip + setuptools for {proj.name} …")
+        subprocess.check_call([str(python_exe), "-m", "pip", "install", "--upgrade", "pip", "wheel", "setuptools==69.5.1"])
         info(f"Installing {proj.name}/{req_file} …")
-        subprocess.check_call([str(python_exe), "-m", "pip", "install", "-r", str(path)])
+        subprocess.check_call([str(python_exe), "-m", "pip", "install", "--no-build-isolation", "-r", str(path)])
     else:
         warn(f"{req_file} not found in {proj.name}, skipping")
 
@@ -55,7 +104,7 @@ def install_frontend_dependencies():
         return
 
     info("Installing npm dependencies in ui/ …")
-    subprocess.check_call(["npm", "install" , "--force"], cwd=str(ui))
+    subprocess.check_call(["npm", "install", "--force"], cwd=str(ui), shell=(os.name == "nt"))
 
 def find_local_ffmpeg_bin() -> Optional[Path]:
     matches = sorted(ROOT.glob("ffmpeg-*-essentials_build/bin/ffmpeg.exe"))

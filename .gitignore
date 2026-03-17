@@ -1,4 +1,5 @@
 .venv/
+venv/
 __pycache__/
 *.py[cod]
 *.log
@@ -18,6 +19,12 @@ ui/out/
 shortGen/results/
 shortGen/temp/
 shortGen/uploads/
+lectureGen/results/
+lectureGen/uploads/
+sportsGen/results/
+sportsGen/uploads/
+hashtagGen/results/
+hashtagGen/uploads/
 
 # Local credentials
 shortGen/cred.json

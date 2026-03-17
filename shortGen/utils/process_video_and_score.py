@@ -239,7 +239,6 @@ def process_video(video_path, jobs, job_id, num_highlights=3, highlight_duration
                     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                     if prev_gray is not None:
                         diff = cv2.absdiff(gray, prev_gray).astype(np.float32)
-                        # map image index to bin index (i -> i)
                         if i < len(visual_scores):
                             visual_scores[i] = float(np.mean(diff))
                     prev_gray = gray
@@ -248,7 +247,7 @@ def process_video(video_path, jobs, job_id, num_highlights=3, highlight_duration
                     continue
 
         except Exception:
-            # Fallback: try direct seeking with OpenCV (slower but works if ffmpeg extraction fails)
+            # Fallback: try direct seeking with OpenCV
             try:
                 cap = cv2.VideoCapture(video_path)
                 prev_gray = None
@@ -268,7 +267,6 @@ def process_video(video_path, jobs, job_id, num_highlights=3, highlight_duration
             except Exception as e:
                 logger.warning(f"Visual analysis failed entirely: {e}")
         finally:
-            # clean up extracted frames to save disk
             try:
                 if os.path.exists(frames_dir):
                     shutil.rmtree(frames_dir)

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Zap, Sparkles, Film, Wrench, ArrowRight, Scissors, GitMerge, Layers, Music, Tag, VolumeX, Maximize2, RefreshCw, Package, Captions, Eye, Image, Sliders, RotateCw } from "lucide-react";
+import { Zap, Sparkles, Wrench, ArrowRight, Scissors, GitMerge, Layers, Music, Tag, VolumeX, Maximize2, RefreshCw, Package, Captions, Eye, Image, Sliders, RotateCw, BookOpen, Trophy } from "lucide-react";
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 
@@ -11,24 +11,14 @@ const StartEditingPage = () => {
 
   const features = [
     {
-      id: "highlight",
-      title: "Highlight",
-      subtitle: "Smart Extraction",
-      description: "Extract the most impactful moments from your videos automatically",
-      icon: Zap,
-      href: "/innerpage/minimize",
-      color: "from-pink-500 to-red-500",
-      stats: "Fastest"
-    },
-    {
-      id: "zoom",
-      title: "Zoom",
-      subtitle: "Focus Effect",
-      description: "Apply cinematic zoom effects to make your videos pop",
-      icon: Film,
-      color: "from-blue-500 to-cyan-500",
-      stats: "Soon",
-      disabled: true
+      id: "lecture",
+      title: "Lecture Highlights",
+      subtitle: "AI Transcript",
+      description: "Extract key moments from lectures and podcasts using Whisper + Claude AI",
+      icon: BookOpen,
+      href: "/innerpage/lecture",
+      color: "from-indigo-500 to-blue-500",
+      stats: "New"
     },
     {
       id: "hashtag",
@@ -36,9 +26,19 @@ const StartEditingPage = () => {
       subtitle: "AI Powered",
       description: "Get smart hashtag recommendations for any video to boost reach",
       icon: Sparkles,
+      href: "/innerpage/hashtag",
       color: "from-purple-500 to-pink-500",
-      stats: "Soon",
-      disabled: true
+      stats: "New"
+    },
+    {
+      id: "sports",
+      title: "Sports Highlights",
+      subtitle: "Audio Energy",
+      description: "Detect crowd cheering and exciting moments from sports videos automatically",
+      icon: Trophy,
+      href: "/innerpage/sports",
+      color: "from-orange-500 to-red-500",
+      stats: "New"
     },
     {
       id: "tools",

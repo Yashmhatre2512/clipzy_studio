@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, Sparkles, Film, Zap, Scissors, Music, Image, Palette, Sliders, GitMerge, Layers, Volume2, VolumeX, Maximize2, RefreshCw, Package, Captions, Eye, Tag, RotateCw } from "lucide-react";
+import { ArrowRight, Sparkles, Film, BookOpen, Trophy, Scissors, Music, Image, Palette, Sliders, GitMerge, Layers, Volume2, VolumeX, Maximize2, RefreshCw, Package, Captions, Eye, Tag, RotateCw, Zap } from "lucide-react";
 import Link from "next/link";
 
 import Navbar from "@/components/navbar";
@@ -60,24 +60,22 @@ const LandingPage = () => {
               <div className="grid md:grid-cols-3 gap-6 mb-16">
                 {[
                   {
-                    icon: Zap,
-                    title: "Video Highlight Extractor",
-                    description: "Automatically detect and extract the most engaging moments from your videos using advanced AI analysis.",
-                    color: "from-pink-500 to-red-500"
+                    icon: BookOpen,
+                    title: "Lecture / Podcast Highlights",
+                    description: "Extract key moments from lectures and podcasts automatically using Whisper transcription and AI selection.",
+                    color: "from-indigo-500 to-blue-500"
                   },
                   {
-                    icon: Film,
-                    title: "Auto Zoom Video",
-                    description: "Intelligent person focus and dynamic zoom effects that keep viewers engaged throughout the video.",
-                    color: "from-blue-500 to-cyan-500",
-                    comingSoon: true
+                    icon: Trophy,
+                    title: "Sports Highlights",
+                    description: "Detect crowd cheering and exciting moments from sports videos automatically using audio energy analysis.",
+                    color: "from-orange-500 to-red-500"
                   },
                   {
                     icon: Sparkles,
                     title: "Hashtag Recommender",
                     description: "Get smart hashtag recommendations for any video to maximize reach and engagement.",
-                    color: "from-purple-500 to-pink-500",
-                    comingSoon: true
+                    color: "from-purple-500 to-pink-500"
                   },
                 ].map((feature, index) => {
                   const Icon = feature.icon;

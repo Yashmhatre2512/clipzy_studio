@@ -1,0 +1,102 @@
+{
+  "sports": {
+    "broad":  ["#sports","#sport","#athlete","#fitness","#training","#motivation","#sportsphotography","#sportslife","#champion","#victory"],
+    "medium": ["#sportsman","#sportsday","#athletelife","#sportslovers","#sportsworld","#sportsphoto","#sportsgram","#sportsaddict","#sportnation","#sportsnet"],
+    "niche":  ["#sportsperson","#sportsfreak","#sportsnutrition","#sportsinjury","#sportsmindset","#sportsmanagement","#sportscoach","#sportsclub","#sportsanalytics","#sportsperformance"]
+  },
+  "football": {
+    "broad":  ["#football","#soccer","#fifa","#footballlife","#footballplayer","#footballlovers","#footballgame","#footballskills","#footballfan","#footballworld"],
+    "medium": ["#footballclub","#footballmatch","#footballgoals","#footballnews","#footballcoach","#footballteam","#footballtraining","#footballdaily","#footballislife","#footballhighlights"],
+    "niche":  ["#footballtactics","#footballdribbling","#footballskillz","#footballpassion","#footballcommunity","#footballanalysis","#footballjersey","#footballcamp","#grassrootsfootball","#footballunited"]
+  },
+  "cricket": {
+    "broad":  ["#cricket","#ipl","#cricketlovers","#cricketfans","#cricketer","#cricketlife","#cricketworld","#bcci","#t20","#testcricket"],
+    "medium": ["#cricketindia","#cricketpakistan","#cricketaustralia","#cricketengland","#cricketsa","#cricketwi","#cricketsrilanka","#cricketbangladesh","#cricketcommentary","#cricketmatch"],
+    "niche":  ["#cricketcoaching","#cricketacademy","#cricketdrills","#cricketskills","#cricketgear","#cricketbat","#cricketball","#cricketwicket","#cricketpitch","#cricketgroundsmen"]
+  },
+  "basketball": {
+    "broad":  ["#basketball","#nba","#hoops","#basketballplayer","#basketballlife","#basketballislife","#bball","#basketballfan","#basketballskills","#basketballgame"],
+    "medium": ["#basketballcoach","#basketballtraining","#basketballteam","#basketballclub","#basketballcourt","#basketballdaily","#basketballworld","#streetbasketball","#basketballhighlights","#basketballlove"],
+    "niche":  ["#basketballdrills","#basketballworkout","#basketballtips","#basketballanalysis","#basketballcommunity","#basketballacademy","#ncaabasketball","#euroleague","#fiba","#probasketball"]
+  },
+  "food": {
+    "broad":  ["#food","#foodie","#foodphotography","#instafood","#yummy","#delicious","#foodstagram","#foodlover","#homemade","#cooking"],
+    "medium": ["#foodblogger","#foodgasm","#foodporn","#tasty","#foodart","#healthyfood","#foodie","#mealprep","#recipe","#cheflife"],
+    "niche":  ["#foodphotographer","#foodstyling","#foodfluffer","#sustainablefood","#plantbasedrecipes","#fermented","#sourdough","#wildcrafted","#farmtotable","#slowfood"]
+  },
+  "travel": {
+    "broad":  ["#travel","#wanderlust","#travelgram","#explore","#adventure","#travelphotography","#instatravel","#travelblogger","#vacation","#trip"],
+    "medium": ["#traveltheworld","#traveler","#traveling","#travellife","#worldtravel","#traveladdict","#travelphoto","#roamtheplanet","#travelinspiration","#passportready"],
+    "niche":  ["#solotravel","#budgettravel","#travelcouple","#familytravel","#luxurytravel","#ecotravel","#sustainabletravel","#offthebeatenpath","#slowtravel","#vanlife"]
+  },
+  "fashion": {
+    "broad":  ["#fashion","#style","#ootd","#outfit","#fashionista","#fashionblogger","#instafashion","#streetstyle","#clothing","#look"],
+    "medium": ["#fashionweek","#stylist","#fashionphotography","#wiw","#lotd","#dailyoutfit","#fashionlover","#mensfashion","#womensfashion","#fashionstyle"],
+    "niche":  ["#sustainablefashion","#vintagefashion","#slowfashion","#ethicalfashion","#capsulewardrobe","#thriftflip","#fashionupcycling","#neutralaesthetics","#cottagecore","#darkacademia"]
+  },
+  "fitness": {
+    "broad":  ["#fitness","#gym","#workout","#fit","#health","#fitlife","#exercise","#fitnessmotivation","#bodybuilding","#gymlife"],
+    "medium": ["#fitfam","#gains","#muscle","#cardio","#weightlifting","#crossfit","#personaltrainer","#gymrat","#fitnessinspiration","#workoutmotivation"],
+    "niche":  ["#calisthenics","#functionalfitness","#hiit","#powerlifting","#olympiclifting","#kettlebell","#resistancetraining","#mobilitytaining","#mindfulmovement","#recoveryworkout"]
+  },
+  "technology": {
+    "broad":  ["#technology","#tech","#innovation","#coding","#programming","#software","#developer","#ai","#startup","#digital"],
+    "medium": ["#techie","#coder","#javascript","#python","#machinelearning","#artificialintelligence","#cybersecurity","#blockchain","#cloud","#devops"],
+    "niche":  ["#100daysofcode","#womenintech","#opensource","#hacktoberfest","#leetcode","#systemdesign","#cleancode","#techtwitter","#buildinpublic","#indiehacker"]
+  },
+  "beauty": {
+    "broad":  ["#beauty","#makeup","#skincare","#cosmetics","#glam","#beautyblogger","#makeuplover","#beautycare","#makeuplife","#glowing"],
+    "medium": ["#makeuptutorial","#makeuplook","#glowup","#skincareRoutine","#beautyproducts","#makeupoftheday","#motd","#beautytips","#makeupideas","#makeupinspiration"],
+    "niche":  ["#cleanbeauty","#crueltyfreemakeup","#veganbeauty","#kbeauty","#naturalskincare","#hyaluronicacid","#retinol","#spf","#dermaplaning","#glasskin"]
+  },
+  "music": {
+    "broad":  ["#music","#musician","#song","#hiphop","#rap","#singer","#producer","#newmusic","#musicvideo","#instamusic"],
+    "medium": ["#musiclife","#musiclover","#indiemusic","#rnb","#pop","#edm","#livemusic","#musicproduction","#recording","#songwriter"],
+    "niche":  ["#unsignedartist","#musicbusiness","#mixengineer","#sounddesign","#beatmaker","#lofimusic","#jazzmusic","#soulmusic","#alternativemusic","#musiccommunity"]
+  },
+  "photography": {
+    "broad":  ["#photography","#photo","#photographer","#photooftheday","#instagood","#picoftheday","#snapshot","#capture","#lens","#canon"],
+    "medium": ["#streetphotography","#landscapephotography","#portraitphotography","#naturephotography","#mobilephotography","#lightroom","#photoshop","#goldenHour","#bokeh","#composition"],
+    "niche":  ["#analogphotography","#filmphotography","#35mm","#darkroom","#cinematicphotography","#astrophotography","#underwaterphotography","#architecturephotography","#documentaryphotography","#abstractphotography"]
+  },
+  "gaming": {
+    "broad":  ["#gaming","#gamer","#videogames","#playstation","#xbox","#nintendo","#pc","#twitch","#esports","#gaminglife"],
+    "medium": ["#gamersofinstagram","#gamingnews","#gamingcommunity","#rpg","#fps","#moba","#mobilegaming","#streamer","#gamingsetup","#gamingmemes"],
+    "niche":  ["#indiegaming","#retrogaming","#gamingmom","#girlgamer","#pcbuilding","#consolegaming","#speedrunning","#gamingclips","#gamingmoments","#tournamentgaming"]
+  },
+  "nature": {
+    "broad":  ["#nature","#naturephotography","#wildlife","#outdoors","#landscape","#earth","#environment","#green","#forest","#mountain"],
+    "medium": ["#naturelover","#wildlifephotography","#hiking","#camping","#trekking","#nationalpark","#birding","#botanicalgarden","#oceanlife","#sunsetphotography"],
+    "niche":  ["#rewilding","#conservation","#ecologylovers","#dragonfly","#macronature","#fungi","#lichenology","#wetlands","#prairieland","#oldgrowth"]
+  },
+  "business": {
+    "broad":  ["#business","#entrepreneur","#marketing","#success","#money","#finance","#startup","#hustle","#ceo","#leadership"],
+    "medium": ["#smallbusiness","#businessowner","#branding","#digitalmarketing","#contentcreator","#socialmediamarketing","#ecommerce","#investing","#sidehustle","#growthmindset"],
+    "niche":  ["#b2bmarketing","#saas","#bootstrapped","#productmarket","#leanstartup","#venturecapital","#angelinvesting","#businessanalysis","#operationsmanagement","#supplychain"]
+  },
+  "comedy": {
+    "broad":  ["#funny","#comedy","#humor","#memes","#lol","#hilarious","#jokes","#laughing","#comedylife","#standupcomedy"],
+    "medium": ["#comediansofinstagram","#comedymemes","#funnymemes","#funnyposts","#comedyvideo","#comedygold","#funnyclips","#funnyvideo","#reels","#comedyreels"],
+    "niche":  ["#dryhumor","#satiricalhumor","#selfDeprecatingHumor","#sketchcomedy","#improvisationcomedy","#darkcomedy","#situationalcomedy","#physicalcomedy","#observationalhumor","#absurdhumor"]
+  },
+  "motivation": {
+    "broad":  ["#motivation","#inspiration","#success","#mindset","#goals","#positivity","#quotes","#selflove","#believe","#growth"],
+    "medium": ["#motivationalquotes","#inspirationalquotes","#dailyquotes","#selfimprovement","#personaldevelopment","#lifecoach","#mindfulness","#gratitude","#affirmations","#manifestation"],
+    "niche":  ["#stoicism","#atomichabits","#growthhacking","#neuroplasticity","#flowstate","#ikigai","#wabi-sabi","#deepwork","#essentialism","#antifragile"]
+  },
+  "art": {
+    "broad":  ["#art","#artist","#artwork","#drawing","#painting","#design","#creative","#illustration","#digitalart","#sketch"],
+    "medium": ["#artofinstagram","#artdaily","#artcommunity","#artistsoninstagram","#contemporaryart","#modernart","#watercolor","#oilpainting","#conceptart","#characterdesign"],
+    "niche":  ["#procreate","#lowbrowart","#outsiderart","#zineculture","#risographprint","#monoprint","#assemblage","#neonrealism","#maximalism","#painterly"]
+  },
+  "education": {
+    "broad":  ["#education","#learning","#student","#school","#study","#knowledge","#teacher","#college","#university","#studygram"],
+    "medium": ["#edtech","#onlinelearning","#homeschool","#studymotivation","#studytips","#elearning","#studyabroad","#academia","#pedagogy","#curriculum"],
+    "niche":  ["#spacerepetition","#zettelkasten","#activereCall","#interleaving","#retrievalpractice","#elaborativeinterrogation","#dualcoding","#mindmapping","#studyblr","#pomodoro"]
+  },
+  "lifestyle": {
+    "broad":  ["#lifestyle","#life","#daily","#happy","#love","#instagood","#photooftheday","#beautiful","#picoftheday","#follow"],
+    "medium": ["#lifestyleblogger","#dailylife","#livingmybestlife","#lifestyle_blogger","#minimalism","#hygge","#slowliving","#intentionalliving","#wellbeing","#selfcare"],
+    "niche":  ["#digitalminimalism","#deGrowth","#soberlife","#childfreeliving","#simplelife","#cottagecoreliving","#govanliving","#consciousconsumerism","#zerowaste","#capsuleHome"]
+  }
+}
