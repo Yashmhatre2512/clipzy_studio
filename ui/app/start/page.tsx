@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Zap, Sparkles, Wrench, ArrowRight, Scissors, GitMerge, Layers, Music, Tag, VolumeX, Maximize2, RefreshCw, Package, Captions, Eye, Image, Sliders, RotateCw, BookOpen, Trophy } from "lucide-react";
+import { Zap, Sparkles, Wrench, ArrowRight, Scissors, GitMerge, Layers, Music, Tag, VolumeX, Maximize2, RefreshCw, Package, Captions, Eye, Image, Sliders, RotateCw, BookOpen, Trophy, Film } from "lucide-react";
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 
@@ -38,6 +38,16 @@ const StartEditingPage = () => {
       icon: Trophy,
       href: "/innerpage/sports",
       color: "from-orange-500 to-red-500",
+      stats: "New"
+    },
+    {
+      id: "sports-highlight",
+      title: "Large Video Highlights",
+      subtitle: "Chunked Analysis",
+      description: "Analyse large sports videos by chunking with overlap — RMS & frequency-based detection",
+      icon: Film,
+      href: "/innerpage/sports-highlight",
+      color: "from-emerald-500 to-teal-500",
       stats: "New"
     },
     {

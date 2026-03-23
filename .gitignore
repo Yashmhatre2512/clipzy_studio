@@ -25,6 +25,8 @@ sportsGen/results/
 sportsGen/uploads/
 hashtagGen/results/
 hashtagGen/uploads/
+sportsHighlight/results/
+sportsHighlight/uploads/
 
 # Local credentials
 shortGen/cred.json

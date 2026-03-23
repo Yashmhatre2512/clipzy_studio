@@ -6,11 +6,14 @@ import time
 import traceback
 from werkzeug.utils import secure_filename
 
-# Import moviepy
+# Import moviepy (1.x uses moviepy.editor, 2.x uses moviepy directly)
 try:
-    from moviepy import VideoFileClip
+    from moviepy.editor import VideoFileClip
 except ImportError:
-    VideoFileClip = None
+    try:
+        from moviepy import VideoFileClip
+    except ImportError:
+        VideoFileClip = None
 
 trim_bp = Blueprint("trim", __name__)
 
